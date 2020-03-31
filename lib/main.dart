@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:modaapp/detay.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,11 +34,62 @@ class Anasayfa extends StatefulWidget {
   _AnasayfaState createState() => _AnasayfaState();
 }
 
-class _AnasayfaState extends State<Anasayfa> {
+class _AnasayfaState extends State<Anasayfa>
+    with SingleTickerProviderStateMixin {
+  TabController tabController;
+  Color likeColor = Colors.red;
+  bool basildiMi = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    tabController = TabController(length: 4, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
+        bottomNavigationBar: SafeArea(
+          child: TabBar(
+            indicatorColor: Colors.transparent,
+            controller: tabController,
+            tabs: <Widget>[
+              Tab(
+                icon: Icon(
+                  Foundation.home,
+                  color: Colors.grey,
+                ),
+              ),
+              Tab(
+                icon: Icon(
+                  Foundation.play_video,
+                  color: Colors.grey,
+                ),
+              ),
+              Tab(
+                icon: Icon(
+                  Fontisto.compass,
+                  color: Colors.grey,
+                ),
+              ),
+              Tab(
+                icon: Icon(
+                  Octicons.person,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+        ),
         backgroundColor: Color(hexColor("#F7F7F7")),
         appBar: AppBar(
           actions: <Widget>[
@@ -77,171 +129,269 @@ class _AnasayfaState extends State<Anasayfa> {
                   ],
                 ),
               ),
-              card(context),
-              card(context),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Padding card(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(30.0),
-      child: Material(
-        borderRadius: BorderRadius.circular(15),
-        elevation: 2,
-        child: Container(
-          padding: EdgeInsets.all(16),
-          height: 600,
-          width: double.infinity,
-          //color: Colors.blue.shade200,
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/model1.jpg"),
-                          fit: BoxFit.cover),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width - 205,
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, top: 10, bottom: 20),
+                child: Material(
+                  borderRadius: BorderRadius.circular(15),
+                  elevation: 2,
+                  child: Container(
+                    padding: EdgeInsets.all(16),
+                    height: 560,
+                    width: double.infinity,
+                    //color: Colors.blue.shade200,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("A.Oğuz", style: TextStyle(fontSize: 18)),
-                        SizedBox(
-                          height: 5,
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage("assets/model1.jpg"),
+                                    fit: BoxFit.cover),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width - 205,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text("A.Oğuz",
+                                      style: TextStyle(fontSize: 18)),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text("34mins ago",
+                                      style: TextStyle(
+                                          fontSize: 11,
+                                          color: Color(hexColor("#E0E0E0")))),
+                                ],
+                              ),
+                            ),
+                            IconButton(
+                                icon: Icon(Icons.more_vert), onPressed: () {})
+                          ],
                         ),
-                        Text("34mins ago",
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: Color(hexColor("#E0E0E0")))),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Flexible(
+                                child: Text(
+                              "This official website features a ribbed knit zipper jacket that is modern  and stylish. It looks very temperament and is reccomend to friends",
+                              style: TextStyle(color: Colors.grey, height: 1.5),
+                              overflow: TextOverflow.clip,
+                            )),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          children: <Widget>[
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Detay(
+                                      imgPath: "assets/modelGrid1.jpg",
+                                    ),
+                                  ),
+                                );
+                                // buraya sayfa yönlendirmesi gelecek.
+                              },
+                              child: Hero(
+                                tag: "assets/modelGrid1.jpg",
+                                child: Container(
+                                  width:
+                                      (MediaQuery.of(context).size.width - 50) /
+                                          2,
+                                  height: 250,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    image: DecorationImage(
+                                        image:
+                                            AssetImage("assets/modelGrid1.jpg"),
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              children: <Widget>[
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Detay(
+                                                  imgPath:
+                                                      "assets/modelGrid2.jpg",
+                                                )));
+                                    //buraya sayfa yönlendirmesi gelecek,
+                                  },
+                                  child: Hero(
+                                    tag: "assets/modelGrid2.jpg",
+                                    child: Container(
+                                      width:
+                                          (MediaQuery.of(context).size.width -
+                                                  150) /
+                                              2,
+                                      height: 120,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  "assets/modelGrid2.jpg"),
+                                              alignment: Alignment.topCenter,
+                                              fit: BoxFit.cover)),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Detay(
+                                                  imgPath:
+                                                      "assets/modelGrid3.jpg",
+                                                )));
+                                    // buraya sayfa yönlendirmesi gelecek;
+                                  },
+                                  child: Hero(
+                                    tag: "assets/modelGrid3.jpg",
+                                    child: Container(
+                                      width:
+                                          (MediaQuery.of(context).size.width -
+                                                  150) /
+                                              2,
+                                      height: 120,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          image: DecorationImage(
+                                            image: AssetImage(
+                                                "assets/modelGrid3.jpg"),
+                                            fit: BoxFit.cover,
+                                            alignment: Alignment.topCenter,
+                                          )),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              width: 75,
+                              height: 25,
+                              decoration: BoxDecoration(
+                                color: Color(hexColor("#FCF5F3")),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Center(
+                                  child: Text(
+                                "#Zara",
+                                style: TextStyle(color: Colors.brown),
+                              )),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              width: 75,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                color: Color(hexColor("#FCF5F3")),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Center(
+                                  child: Text(
+                                "#Beymen",
+                                style: TextStyle(color: Colors.brown),
+                              )),
+                            ),
+                          ],
+                        ),
+                        Divider(),
+                        Row(
+                          children: <Widget>[
+                            IconButton(
+                              icon: Icon(
+                                MaterialCommunityIcons.share,
+                                color: Colors.grey,
+                              ),
+                              onPressed: () {},
+                            ),
+                            Text(
+                              "1.7k",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w100),
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                FontAwesome.commenting,
+                                color: Colors.grey,
+                                size: 20,
+                              ),
+                              onPressed: () {},
+                            ),
+                            Text(
+                              "325",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w100),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width - 260,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  IconButton(
+                                      icon: Icon(
+                                        AntDesign.heart,
+                                        size: 22,
+                                        color: basildiMi
+                                            ? Colors.red
+                                            : Colors.grey,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          basildiMi = !basildiMi;
+                                        });
+                                      }),
+                                  Text("2.3k",
+                                      style: TextStyle(
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.w100)),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ],
                     ),
                   ),
-                  IconButton(icon: Icon(Icons.more_vert), onPressed: () {})
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                children: <Widget>[
-                  Flexible(
-                      child: Text(
-                    "This official website features a ribbed knit zipper jacket that is modern  and stylish. It looks very temperament and is reccomend to friends",
-                    style: TextStyle(color: Colors.grey, height: 1.5),
-                    overflow: TextOverflow.clip,
-                  )),
-                ],
-              ),
-              SizedBox(height: 10),
-              Container(
-                height: 250,
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: (MediaQuery.of(context).size.width - 50) / 2,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                            image: AssetImage(
-                              "assets/modelGrid1.jpg",
-                            ),
-                            fit: BoxFit.cover),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Container(
-                          width: (MediaQuery.of(context).size.width - 160) / 2,
-                          height: 120,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                                image: AssetImage("assets/modelGrid2.jpg"),
-                                fit: BoxFit.cover,
-                                alignment: Alignment.topCenter),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          width: (MediaQuery.of(context).size.width - 160) / 2,
-                          height: 120,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                                image: AssetImage("assets/modelGrid3.jpg"),
-                                fit: BoxFit.cover,
-                                alignment: Alignment.topCenter),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
                 ),
               ),
-              SizedBox(height: 20),
-              Row(
-                children: <Widget>[
-                  Container(
-                    width: 75,
-                    height: 25,
-                    decoration: BoxDecoration(
-                      color: Color(hexColor("#FCF5F3")),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Center(
-                        child: Text(
-                      "#Zara",
-                      style: TextStyle(color: Colors.brown),
-                    )),
-                  ),
-                  SizedBox(width: 10,),
-                  Container(
-                    width: 75,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      color: Color(hexColor("#FCF5F3")),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Center(
-                        child: Text(
-                      "#Beymen",
-                      style: TextStyle(color: Colors.brown),
-                    )),
-                  ),
-                ],
-              ),
-
-              Divider(),
-              
-              Row(
-                children: <Widget>[
-                  IconButton(icon: Icon(MaterialCommunityIcons.share), onPressed: (){})
-
-
-
-                ],
-
-
-              )
             ],
           ),
         ),

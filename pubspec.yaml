@@ -55,6 +55,7 @@ flutter:
     - assets/hm.png
     - assets/zara.jpg
     - assets/ceket.jpeg
+    - assets/beymen.png
     
 
   # An image asset can refer to one or more resolution-specific "variants", see
