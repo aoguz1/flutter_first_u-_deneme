@@ -1,6 +1,6 @@
 # modaapp
 
-A new Flutter project.
+Basit bir moda blog hazırladım 
 
 ## Getting Started
 
