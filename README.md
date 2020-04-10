@@ -1,6 +1,6 @@
 # modaapp
 
-Basit bir moda blog hazırladım 
+Basit bir moda blogu tasarımı hazırladım 
 
 ## Getting Started
 
